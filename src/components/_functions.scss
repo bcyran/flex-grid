@@ -1,0 +1,28 @@
+// Calculating GCD using Euclid's algorithm
+@function gcd($a, $b) {
+    @while $b != 0 {
+        $c: $a % $b;
+        $a: $b;
+        $b: $c;
+    }
+
+    @return $a;
+}
+
+// Write two number as fraction
+@function fraction($a, $b) {
+    @return #{$a}\/#{$b};
+}
+
+// Simplify fraction
+@function simplify($a, $b) {
+    $gcd: gcd($a, $b);
+    $x: $a / $gcd;
+    $y: $b / $gcd;
+
+    @if fraction($x, $y) != fraction($a, $b) {
+        @return fraction($x, $y);
+    } @else {
+        @return false;
+    }
+}

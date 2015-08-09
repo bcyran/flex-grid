@@ -1,0 +1,52 @@
+// Grid container
+.flex {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+// Mixin for generating columns
+@mixin columns($size: false) {
+    $modifier: if($size, $size + '--', null);
+
+    @for $i from 1 through ($cols-number - 1) {
+        .flex__col--#{$modifier}#{$i}\/#{$cols-number} {
+            $basis: 100% * ($i / $cols-number) - $col-margin;
+            flex: 0 0 $basis;
+        }
+
+        @if simplify($i, $cols-number) {
+            .flex__col--#{$modifier}#{simplify($i, $cols-number)} {
+                @extend .flex__col--#{$modifier}#{$i}\/#{$cols-number};
+            }
+        }
+
+        $i: $i + 1;
+    }
+}
+
+
+// Base grid columns
+@include columns();
+
+.flex__col--1 {
+    flex: 0 0 100%;
+}
+
+// Grid columns for m-sized screens
+@media only screen and (min-width: $breakpoint-s-m) {
+    @include columns('m');
+
+    .flex__col--m--1 {
+        flex: 0 0 100%;
+    }
+}
+
+// Grid columns for l-sized screens
+@media only screen and (min-width: $breakpoint-m-l) {
+    @include columns('l');
+
+    .flex__col--l--1 {
+        flex: 0 0 100%;
+    }
+}
