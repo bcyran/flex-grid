@@ -24,6 +24,16 @@ module.exports = function(grunt) {
             }
         },
 
+        scsslint: {
+            dev: [
+                'src/**/*.scss',
+            ],
+            options: {
+                config: '.scss-lint.yml',
+                colorizeOutput: true
+            },
+        },
+
         autoprefixer: {
             dist: {
                 files:{
@@ -47,11 +57,11 @@ module.exports = function(grunt) {
         watch: {
             css: {
                 files: ['src/**/*.scss'],
-                tasks: ['sass:expanded'],
+                tasks: ['scsslint', 'sass:expanded'],
                 options: {
                     spawn: false,
                 }
-            }
+            },
             livereload: {
                 options: { livereload: true },
                 files: ['**/*.css', '**/*.html'],
@@ -63,6 +73,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-sass');
     grunt.loadNpmTasks('grunt-autoprefixer');
     grunt.loadNpmTasks('grunt-csso');
+    grunt.loadNpmTasks('grunt-scss-lint');
     grunt.loadNpmTasks('grunt-contrib-watch');
 
 
