@@ -11,7 +11,9 @@
 
     @for $i from 1 through ($cols-number - 1) {
         .flex__col--#{$modifier}#{$i}\/#{$cols-number} {
-            $basis: 100% * ($i / $cols-number) - $col-margin;
+            $width: 100% * $i / $cols-number;
+            $basis: calc(#{$width} - #{$col-margin});
+
             flex: 0 0 $basis;
         }
 
