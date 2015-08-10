@@ -1,7 +1,9 @@
 // Grid
-$cols-number: 12;
-$col-margin: 1%;
+$cols-number: 12 !default;
+$col-margin: 1% !default;
 
-// Breakpoints
-$breakpoint-s-m: 600px !default;
-$breakpoint-m-l: 900px !default;
+// Breakpoints (you can add your own)
+$breakpoints: (
+    m: 600px, // medium screen
+    l: 900px // large screen
+);

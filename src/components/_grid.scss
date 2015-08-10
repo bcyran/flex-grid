@@ -33,20 +33,16 @@
     flex: 0 0 100%;
 }
 
-// Grid columns for m-sized screens
-@media only screen and (min-width: $breakpoint-s-m) {
-    @include columns('m');
+// Grid columns for different breapoints
+@each $breakpoint in $breakpoints {
+    $name: nth($breakpoint, 1);
+    $size: nth($breakpoint, 2);
 
-    .flex__col--m--1 {
-        flex: 0 0 100%;
-    }
-}
+    @media only screen and (min-width: $size) {
+        @include columns($name);
 
-// Grid columns for l-sized screens
-@media only screen and (min-width: $breakpoint-m-l) {
-    @include columns('l');
-
-    .flex__col--l--1 {
-        flex: 0 0 100%;
+        .flex__col--#{$name}--1 {
+            flex: 0 0 100%;
+        }
     }
 }
