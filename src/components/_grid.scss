@@ -5,12 +5,17 @@
     justify-content: space-between;
 }
 
+[class^="flex__col--"],
+[class*=" flex__col--"] {
+    flex: 0 0;
+}
+
 // Mixin for generating columns
 @mixin columns($size: false) {
     $modifier: if($size, $size + '--', null);
 
     .flex__col--#{$modifier}1 {
-        flex: 0 0 100%;
+        flex-basis: 0 0 100%;
     }
 
     @for $i from 1 through ($cols-number - 1) {
@@ -18,7 +23,7 @@
             $width: 100% * $i / $cols-number;
             $basis: calc(#{$width} - #{$col-margin});
 
-            flex: 0 0 $basis;
+            flex-basis: $basis;
         }
 
         @if simplify($i, $cols-number) {
