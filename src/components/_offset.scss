@@ -1,0 +1,33 @@
+// Offset classes
+@mixin offsets($size: false) {
+    $modifier: if($size, $size + '--', null);
+
+    @for $i from 1 through ($cols-number - 1) {
+        .flex__col--offset--#{$modifier}#{$i}\/#{$cols-number} {
+            $margin: 100% * $i / $cols-number;
+
+            margin-left: $margin;
+        }
+
+        @if simplify($i, $cols-number) {
+            .flex__col--offset--#{$modifier}#{simplify($i, $cols-number)} {
+                @extend .flex__col--offset--#{$modifier}#{$i}\/#{$cols-number};
+            }
+        }
+
+        $i: $i + 1;
+    }
+}
+
+// Base grid offsets
+@include offsets();
+
+// Offsets for different breakpoints
+@each $breakpoint in $breakpoints {
+    $name: nth($breakpoint, 1);
+    $size: nth($breakpoint, 2);
+
+    @media only screen and (min-width: $size) {
+        @include offsets($name);
+    }
+}
