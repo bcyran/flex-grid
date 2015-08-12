@@ -9,6 +9,10 @@
 @mixin columns($size: false) {
     $modifier: if($size, $size + '--', null);
 
+    .flex__col--#{$modifier}1 {
+        flex: 0 0 100%;
+    }
+
     @for $i from 1 through ($cols-number - 1) {
         .flex__col--#{$modifier}#{$i}\/#{$cols-number} {
             $width: 100% * $i / $cols-number;
@@ -31,10 +35,6 @@
 // Base grid columns
 @include columns();
 
-.flex__col--1 {
-    flex: 0 0 100%;
-}
-
 // Grid columns for different breapoints
 @each $breakpoint in $breakpoints {
     $name: nth($breakpoint, 1);
@@ -42,9 +42,5 @@
 
     @media only screen and (min-width: $size) {
         @include columns($name);
-
-        .flex__col--#{$name}--1 {
-            flex: 0 0 100%;
-        }
     }
 }
