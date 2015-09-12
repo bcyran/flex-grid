@@ -8,6 +8,7 @@
 [class^="flex__col--"],
 [class*=" flex__col--"] {
     flex: 0 0;
+    flex-basis: auto;
 }
 
 // Mixin for generating columns
@@ -15,7 +16,7 @@
     $modifier: if($size, $size + '--', null);
 
     .flex__col--#{$modifier}1 {
-        flex-basis: 0 0 100%;
+        width: 100%;
     }
 
     @for $i from 1 through ($cols-number - 1) {
@@ -23,7 +24,7 @@
             $width: 100% * $i / $cols-number;
             $basis: calc(#{$width} - #{$col-margin});
 
-            flex-basis: $basis;
+            width: $basis;
         }
 
         @if simplify($i, $cols-number) {
