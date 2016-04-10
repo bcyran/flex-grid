@@ -7,7 +7,7 @@ module.exports = function(grunt) {
             expanded: {
                 options: {
                     style: 'expanded',
-                    sourcemap: 'none'
+                    sourcemap: 'auto'
                 },
                 files: {
                     'dist/flex-grid.css': 'src/flex-grid.scss'
@@ -16,7 +16,7 @@ module.exports = function(grunt) {
             compressed: {
                 options: {
                     style: 'compressed',
-                    sourcemap: 'none'
+                    sourcemap: 'auto'
                 },
                 files: {
                     'dist/flex-grid.min.css': 'src/flex-grid.scss'
@@ -36,19 +36,11 @@ module.exports = function(grunt) {
 
         autoprefixer: {
             dist: {
-                files:{
-                    'dist/flex-grid.css': 'dist/flex-grid.css',
-                    'dist/flex-grid.min.css': 'dist/flex-grid.min.css'
-                }
-            }
-        },
-
-        csso: {
-            compressed: {
                 options: {
-                    report: 'min',
+                    map: true
                 },
                 files:{
+                    'dist/flex-grid.css': 'dist/flex-grid.css',
                     'dist/flex-grid.min.css': 'dist/flex-grid.min.css'
                 }
             }
@@ -57,9 +49,9 @@ module.exports = function(grunt) {
         watch: {
             css: {
                 files: ['src/**/*.scss'],
-                tasks: ['scsslint', 'sass:expanded'],
+                tasks: ['sass:compressed'],
                 options: {
-                    spawn: false,
+                    spawn: true,
                 }
             },
             livereload: {
@@ -72,12 +64,12 @@ module.exports = function(grunt) {
 
     grunt.loadNpmTasks('grunt-contrib-sass');
     grunt.loadNpmTasks('grunt-autoprefixer');
-    grunt.loadNpmTasks('grunt-csso');
     grunt.loadNpmTasks('grunt-scss-lint');
     grunt.loadNpmTasks('grunt-contrib-watch');
 
 
-    grunt.registerTask('dist', ['sass:expanded', 'sass:compressed', 'autoprefixer', 'csso:compressed']);
+    grunt.registerTask('dist', ['sass', 'autoprefixer']);
+    grunt.registerTask('lint', ['scsslint']);
     grunt.registerTask('dev', ['watch']);
 
 };
